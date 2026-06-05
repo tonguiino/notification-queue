@@ -1,7 +1,9 @@
+export type NotificationChannel = "email" | "sms" | "push";
+
 export type SendingJob = {
   id: string;
   title: string;
-  channel: "email" | "sms" | "push";
+  channel: NotificationChannel;
   status: "sending";
   progress: number;
 };
@@ -9,7 +11,7 @@ export type SendingJob = {
 export type OtherJob = {
   id: string;
   title: string;
-  channel: "email" | "sms" | "push";
+  channel: NotificationChannel;
   status: "queued" | "sent" | "failed";
 };
 
