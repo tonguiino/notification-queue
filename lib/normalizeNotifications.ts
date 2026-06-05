@@ -1,8 +1,8 @@
-import { NotificationJob } from "@/types/notification";
+import { NotificationChannel, NotificationJob } from "@/types/notification";
 
 type NotificationInput = {
   title: string;
-  channel: "email" | "sms" | "push";
+  channel: NotificationChannel;
 };
 
 export function normalizeNotifications<T extends NotificationInput>(
