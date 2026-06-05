@@ -8,7 +8,7 @@ type NotificationInput = {
 export function normalizeNotifications<T extends NotificationInput>(
   items: T[],
 ): NotificationJob[] {
-  const seen = new Set<string>(); //Con esto evitamos la duplicidad de notificaciones
+  const seen = new Set<string>();
   const result: NotificationJob[] = [];
 
   for (const item of items) {
