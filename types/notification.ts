@@ -2,7 +2,7 @@ export type SendingJob = {
   id: string;
   title: string;
   channel: "email" | "sms" | "push";
-  status: "sending"; //Dato discriminante
+  status: "sending";
   progress: number;
 };
 
