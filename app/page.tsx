@@ -160,7 +160,7 @@ export default function Home() {
 
           <button
             onClick={handleSendAll}
-            className="px-6 py-3 bg-blue-500 rounded-lg text-white font-medium hover:bg-blue-600 transition"
+            className="px-6 py-3 bg-blue-500 rounded-lg text-white font-medium hover:bg-blue-600 transition cursor-pointer"
           >
             Send All
           </button>
