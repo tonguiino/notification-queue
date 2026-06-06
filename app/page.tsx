@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export default function Home() {
 
-    const [notifications, setNotifications]= useState<NotificationJob[]>([])
+  const [notifications, setNotifications] = useState<NotificationJob[]>([])
 
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
@@ -16,8 +16,8 @@ export default function Home() {
         <h1>Notificaciones</h1>
         <button className='p-2 bg-blue-500 rounded-md text-white cursor-pointer'>Send All</button>
       </div>
-      <NotificationForm  notifications={notifications} setNotifications={setNotifications} />
-      <NotificationList  notifications={notifications}/>
+      <NotificationForm setNotifications={setNotifications} />
+      <NotificationList notifications={notifications} />
     </div>
   );
 }

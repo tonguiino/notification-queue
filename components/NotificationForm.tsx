@@ -1,49 +1,75 @@
 import { NotificationChannel, NotificationJob } from '@/types/notification'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { Dispatch, SetStateAction, } from 'react'
 
 type SetNotification = {
-    notifications: NotificationJob[]
+    // notifications: NotificationJob[]
     setNotifications: Dispatch<SetStateAction<NotificationJob[]>>
 }
-const NotificationForm = ({ setNotifications, notifications }: SetNotification) => {
-    const [title, setTitle] = useState('')
-    const [channel, setChannel] = useState<NotificationChannel>('email')
 
-    const handleSubmit = (e: React.SyntheticEvent) => {
-        e.preventDefault()
-        const newNotification: NotificationJob = {
-            id: crypto.randomUUID(),
-            title,
-            channel,
-            status: 'queued'
+type FormValues = {
+    title: string,
+    channel: NotificationChannel;
+}
+
+const notificationSchema = Yup.object({
+    title: Yup.string()
+        .required('Title is required'),
+
+    channel: Yup.mixed<NotificationChannel>()
+        .oneOf(['email', 'sms', 'push'])
+        .required('Channel is required')
+})
+
+const NotificationForm = ({ setNotifications, }: SetNotification) => {
+
+    const formik = useFormik<FormValues>({
+        initialValues: {
+            title: '',
+            channel: 'email'
+        },
+        validationSchema: notificationSchema,
+
+        onSubmit: values => {
+            const newNotification: NotificationJob = {
+                id: crypto.randomUUID(),
+                title: values.title,
+                channel: values.channel,
+                status: 'queued'
+            }
+
+            setNotifications(prev => [...prev, newNotification])
+
+            formik.resetForm()
         }
-        setTitle('')
-        setChannel('email')
 
-        setNotifications(prev => [...prev, newNotification])
+    })
 
-    }
+
     return (
         <>
             <div className="p-2 border-gray-300 border rounded-md shadow-xl">
-                <form onSubmit={handleSubmit} className='flex items-end gap-4'>
+                <form onSubmit={formik.handleSubmit} className='flex items-end gap-4'>
                     <div className='flex flex-col flex-1'>
                         <label htmlFor="title">Notification Title</label>
                         <input
+                            name='title'
                             className='border rounded-md p-1'
                             type="text"
                             placeholder='Ej: Promo de Verano'
-                            value={title}
-                            onChange={e => setTitle(e.target.value)}
+                            value={formik.values.title}
+                            onChange={formik.handleChange}
 
                         />
                     </div>
                     <div className='flex flex-col'>
                         <label htmlFor="channel">Channel</label>
                         <select
+                            name='channel'
                             className="border rounded-md p-1 w-48"
-                            value={channel}
-                            onChange={e => setChannel(e.target.value as NotificationChannel)}
+                            value={formik.values.channel}
+                            onChange={formik.handleChange}
                         >
                             <option value="email">Email</option>
                             <option value="sms">Sms</option>
@@ -59,3 +85,21 @@ const NotificationForm = ({ setNotifications, notifications }: SetNotification) 
 }
 
 export default NotificationForm
+
+// const [title, setTitle] = useState('')
+// const [channel, setChannel] = useState<NotificationChannel>('email')
+
+// const handleSubmit = (e: React.SyntheticEvent) => {
+//     e.preventDefault()
+//     const newNotification: NotificationJob = {
+//         id: crypto.randomUUID(),
+//         title,
+//         channel,
+//         status: 'queued'
+//     }
+//     setTitle('')
+//     setChannel('email')
+
+//     setNotifications(prev => [...prev, newNotification])
+
+// }
