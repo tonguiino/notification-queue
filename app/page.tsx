@@ -16,7 +16,7 @@ export default function Home() {
         <h1>Notificaciones</h1>
         <button className='p-2 bg-blue-500 rounded-md text-white cursor-pointer'>Send All</button>
       </div>
-      <NotificationForm setNotifications={setNotifications} />
+      <NotificationForm  notifications={notifications} setNotifications={setNotifications} />
       <NotificationList  notifications={notifications}/>
     </div>
   );

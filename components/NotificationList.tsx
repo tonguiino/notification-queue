@@ -10,7 +10,7 @@ const NotificationList = ({ notifications, }: NotificationListProps) => {
 
 
     return (
-        <div className="flex flex-1 p-2 border-gray-300 border rounded-md shadow-xl">
+        <div className="flex flex-col flex-1 p-2 border-gray-300 border rounded-md shadow-xl">
             {notifications.map((n) => (
                 <NotificationItem key={n.id} notification={n}/>
             ))}

@@ -1,15 +1,26 @@
-import { NotificationJob } from '@/types/notification'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import { NotificationChannel, NotificationJob } from '@/types/notification'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 type SetNotification = {
+    notifications: NotificationJob[]
     setNotifications: Dispatch<SetStateAction<NotificationJob[]>>
 }
-const NotificationForm = ({ setNotifications, }: SetNotification) => {
+const NotificationForm = ({ setNotifications, notifications }: SetNotification) => {
     const [title, setTitle] = useState('')
-    const [channel, setChannel] = useState('email')
+    const [channel, setChannel] = useState<NotificationChannel>('email')
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
+        const newNotification: NotificationJob = {
+            id: crypto.randomUUID(),
+            title,
+            channel,
+            status: 'queued'
+        }
+        setTitle('')
+        setChannel('email')
+
+        setNotifications(prev => [...prev, newNotification])
 
     }
     return (
@@ -32,7 +43,7 @@ const NotificationForm = ({ setNotifications, }: SetNotification) => {
                         <select
                             className="border rounded-md p-1 w-48"
                             value={channel}
-                            onChange={e => setChannel(e.target.value)}
+                            onChange={e => setChannel(e.target.value as NotificationChannel)}
                         >
                             <option value="email">Email</option>
                             <option value="sms">Sms</option>
