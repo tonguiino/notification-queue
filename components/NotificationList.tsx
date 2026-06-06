@@ -6,13 +6,14 @@ type NotificationListProps = {
     notifications: NotificationJob[];
 }
 
-const NotificationList = ({notifications,}:NotificationListProps) => {
-   
-    console.log(notifications);
-    
+const NotificationList = ({ notifications, }: NotificationListProps) => {
+
+
     return (
         <div className="flex flex-1 p-2 border-gray-300 border rounded-md shadow-xl">
-            <NotificationItem />
+            {notifications.map((n) => (
+                <NotificationItem key={n.id} notification={n}/>
+            ))}
         </div>
     )
 }
