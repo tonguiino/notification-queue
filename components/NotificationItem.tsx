@@ -4,12 +4,14 @@ type NotificationItemProps = {
     notification: NotificationJob;
     onDelete: (id: string) => void;
     onSend: (id: string) => void;
+    onCancel: (id: string) => void;
 }
 
 const NotificationItem = ({
     notification,
     onDelete,
-    onSend
+    onSend,
+    onCancel
 }: NotificationItemProps) => {
 
     const statusMap: Record<string, string> = {
@@ -68,23 +70,29 @@ const NotificationItem = ({
                     </button>
                 )}
 
+                {notification.status === 'sending' && (
+                    <button
+                        onClick={()=>onCancel(notification.id)}
+                        className="px-4 py-2 rounded-md bg-gray-200"
+                    >
+                        Cancel
+                    </button>
+                )}
+
+                {notification.status === 'failed' && (
+                    <button
+                        onClick={() => onSend(notification.id)}
+                        className="px-4 py-2 rounded-md bg-yellow-200 text-yellow-700"
+                    >
+                        Retry
+                    </button>
+                )}
+
                 <button
                     onClick={() => onDelete(notification.id)}
                     className="px-4 py-2 rounded-md bg-red-200 text-red-500"
                 >
                     Delete
-                </button>
-
-                <button
-                    className="px-4 py-2 rounded-md bg-gray-200"
-                >
-                    Cancel
-                </button>
-
-                <button
-                    className="px-4 py-2 rounded-md bg-yellow-200 text-yellow-700"
-                >
-                    Retry
                 </button>
 
             </div>
