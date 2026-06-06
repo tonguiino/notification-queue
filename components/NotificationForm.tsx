@@ -85,21 +85,3 @@ const NotificationForm = ({ setNotifications, }: SetNotification) => {
 }
 
 export default NotificationForm
-
-// const [title, setTitle] = useState('')
-// const [channel, setChannel] = useState<NotificationChannel>('email')
-
-// const handleSubmit = (e: React.SyntheticEvent) => {
-//     e.preventDefault()
-//     const newNotification: NotificationJob = {
-//         id: crypto.randomUUID(),
-//         title,
-//         channel,
-//         status: 'queued'
-//     }
-//     setTitle('')
-//     setChannel('email')
-
-//     setNotifications(prev => [...prev, newNotification])
-
-// }
