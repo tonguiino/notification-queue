@@ -65,7 +65,7 @@ const NotificationItem = ({
                         className="px-5 py-2 rounded-md border border-gray-300 hover:bg-gray-50 cursor-pointer"
                     >
                         Send
-                    </button>
+                     </button>
                 )}
 
                 {notification.status === 'sending' && (
